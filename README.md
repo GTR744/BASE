@@ -1,127 +1,209 @@
-# BASE
-BASE n'est pas une aide social, c'est un droit.
+# BASE — Revenu Universel Décentralisé
 
-# BASE – Revenu Universel Décentralisé
+## 1. Résumé exécutif
 
----
+BASE est une blockchain publique conçue pour garantir un **revenu universel natif**, distribué automatiquement à chaque individu tout au long de sa vie. Contrairement aux aides sociales, BASE établit un **droit économique fondamental**, programmé dans le protocole.
 
-## 1️⃣ Résumé exécutif
-
-**BASE** est une crypto-monnaie universelle inspirée de Bitcoin mais conçue pour un **revenu universel**.  
-
-Chaque être humain peut recevoir un flux annuel de BASE dès sa naissance, garantissant un droit économique plutôt qu’une aide.  
-
-**Objectifs principaux :**  
-- Redistribution équitable à chaque individu.  
-- Sécurité et décentralisation via PoW léger CPU.  
-- Transactions rapides, simples et peu énergivores.  
-- Système transparent pour éviter toute fraude.
+Le réseau est volontairement simple, peu énergivore et accessible, afin de permettre une adoption mondiale sans dépendance aux États, aux banques ou aux plateformes centralisées.
 
 ---
 
-## 2️⃣ Motivation
+## 2. Problématique
 
-Le système économique actuel repose sur la centralisation et l’émission monétaire contrôlée par les États et les banques. BASE propose :  
-- Une monnaie qui **garantit à tous un revenu minimal**, indépendamment du statut social.  
-- Une alternative décentralisée à l’argent fiduciaire.  
-- Une intégration facile dans les services et biens réels.  
+Les systèmes monétaires actuels reposent sur :
 
----
+* une émission centralisée,
+* une redistribution conditionnelle,
+* une dépendance aux institutions,
+* une fragilité face aux crises économiques.
 
-## 3️⃣ Concept technique
+Les revenus universels existants sont politiques, temporaires et financés par la dette.
 
-### 3.1 Architecture
-
-- **Layer 1 – Blockchain** : sécurité, minage léger (CPU), ajout de blocs.  
-- **Layer 2 – Transactions** : transferts entre wallets avec frais minimes.  
-- **Flux universel** : distribution automatique aux wallets selon l’âge.  
-
-### 3.2 Flux universel
-
-| Catégorie | Flux par cycle | Cycle | % utilisable |
-|-----------|----------------|-------|--------------|
-| Adulte    | 1500 B         | 1 mois| 80 %         |
-| Enfant    | 750 B          | 1 mois| 50 %         |
-
-- Blocage des fonds jusqu’à 18 ans pour certains montants.  
-- Objectif : permettre à chacun de **vivre grâce à BASE**.  
-
-### 3.3 Transactions et frais
-
-- Frais totaux : 0.075 % par transaction  
-  - 0.025 % récompense créateur à vie  
-  - 0.05 % frais infrastructure  
-- Transactions signées avec **Ed25519** pour sécurité.  
-- Transferts rapides, peu énergivores, validés par PoW léger CPU.
-
-### 3.4 Découverte et réseau
-
-- **Peer discovery automatique** via `bootstrap.json` (ou serveur central en production).  
-- Synchronisation automatique des blocs et transactions.  
-- Multi-node pour résilience et décentralisation.  
+**BASE propose une alternative structurelle** : une monnaie dont l’émission est directement liée à l’existence humaine.
 
 ---
 
-## 4️⃣ Simulation économique
+## 3. Principe fondamental
 
-- Chaque humain actif reçoit son flux BASE à activation (naissance + 18 ans).  
-- Flux limité pour éviter surconsommation et inflation.  
-- Répartition et blocage conçus pour :  
-  - Éviter accumulation massive par fraude.  
-  - Garantir que tout le monde puisse **vivre de BASE**.  
-- La valeur stable est calibrée sur le **coût de la vie local** : ex. 1 BASE ≈ 1 unité monétaire locale pour biens essentiels.  
+> BASE n’est pas une aide sociale. BASE est un droit.
 
----
+Chaque individu reçoit un flux monétaire régulier dès son activation sur le réseau.
+Ce flux est :
 
-## 5️⃣ Sécurité et prévention de fraude
-
-- PoW léger CPU empêche le spam et attaques simples.  
-- Wallets uniques + clés Ed25519 pour signatures.  
-- Flux universel limité par cycle et âge.  
-- Blocage des fonds jusqu’à 18 ans pour éviter multi-comptes.  
-- Frais minimes pour maintenir l’infrastructure et récompenser le réseau.  
+* automatique,
+* non conditionnel,
+* égalitaire,
+* inscrit au niveau du protocole.
 
 ---
 
-## 6️⃣ Déploiement et roadmap
+## 4. Architecture technique
 
-### Phase 1 : Test local  
+### 4.1 Vue d’ensemble
 
-- Nodes sur PC ou VPS pour validation du réseau et flux universel.  
-- Simulation multi-node avec population fictive.  
+BASE repose sur une architecture à deux couches :
 
-### Phase 2 : Test public  
+* **Layer 1 — Blockchain**
 
-- Lancement de quelques nodes publics pour test réseau.  
-- Validation transactions et discovery automatique.  
+  * Sécurité du réseau
+  * Validation des blocs
+  * Preuve de travail légère (CPU)
 
-### Phase 3 : Lancement global  
+* **Layer 2 — Transactions & Flux**
 
-- Publication sur GitHub / site officiel  
-- Documentation complète et API publique  
-- Applications de paiement et intégration avec biens/services  
+  * Transferts entre wallets
+  * Distribution du revenu universel
+  * Frais et mécanismes économiques
 
 ---
 
-## 7️⃣ Instructions pour lancer le node
+### 4.2 Layer 1 — Blockchain
 
-**Installation des dépendances :**
+* Blockchain publique
+* Ajout des blocs par Proof of Work léger
+* Difficulté volontairement basse
+* Objectif : sécurité et résistance au spam, pas compétition énergétique
 
-```bash
-python -m pip install flask pynacl waitress
+Temps de bloc cible : **≈ 1 minute** (paramétrable)
 
-python BASE_PUBLIC_NODE.py --port 5000
+---
 
-BASE/
-│
-├─ README.md            # White Paper complet
-├─ BASE_PUBLIC_NODE.py   # Node opérationnel avec découverte auto
-├─ bootstrap.json        # Créé automatiquement pour peer discovery
-├─ wallet_data.json      # Wallets et clés
-├─ blockchaindata.json   # Stockage blockchain
-├─ docs/
-│   ├─ schema_layer1.png
-│   ├─ schema_layer2.png
-│   └─ flux_universel.png
-└─ examples/
-    └─ api_examples.md
+### 4.3 Layer 2 — Flux universel
+
+Chaque wallet reçoit un flux périodique selon l’âge :
+
+| Catégorie | Flux mensuel | % utilisable | % verrouillé |
+| --------- | ------------ | ------------ | ------------ |
+| Enfant    | 1000 BASE    | 50 %         | 50 %         |
+| Adulte    | 1500 BASE    | 80 %         | 20 %         |
+
+* Les fonds verrouillés servent de stabilisateur monétaire
+* Les fonds enfants sont progressivement libérés à la majorité
+
+---
+
+## 5. Modèle économique
+
+### 5.1 Frais de transaction
+
+Frais totaux par transaction : **0,075 %**
+
+Répartition :
+
+* **0,025 %** — Récompense créateur (droit de création, à vie)
+* **0,05 %** — Fonds infrastructure réseau
+
+Ces frais sont faibles, constants et non inflationnistes.
+
+---
+
+### 5.2 Rôle du créateur
+
+Le créateur :
+
+* ne contrôle pas l’émission,
+* ne peut pas modifier les soldes,
+* ne peut pas censurer le réseau,
+
+mais reçoit une **rétribution perpétuelle transparente** via les frais.
+
+Ce mécanisme aligne :
+
+* incitation long terme,
+* neutralité,
+* durabilité du projet.
+
+---
+
+## 6. Sécurité
+
+* Clés cryptographiques Ed25519
+* Transactions obligatoirement signées
+* Validation locale par chaque node
+* Refus automatique des transactions invalides
+
+Le réseau ne repose pas sur la confiance, mais sur la vérification.
+
+---
+
+## 7. Réseau et décentralisation
+
+* Nodes indépendants
+* Découverte automatique des pairs
+* Synchronisation des blocs
+* Aucune autorité centrale
+
+Un seul node suffit pour exister.
+Plus il y a de nodes, plus le réseau devient résilient.
+
+---
+
+## 8. Consommation énergétique
+
+* Aucun GPU requis
+* Aucun ASIC
+* Minage CPU léger
+* Compatible avec ordinateurs standards et VPS
+
+Objectif : **sécurité minimale, coût énergétique minimal**.
+
+---
+
+## 9. Cas d’usage
+
+* Revenu universel mondial
+* Échanges de biens et services
+* Économie locale décentralisée
+* Protection contre la pauvreté structurelle
+
+BASE est conçu pour permettre de **vivre**, pas simplement survivre.
+
+---
+
+## 10. Gouvernance
+
+* Code open-source
+* Règles immuables une fois adoptées
+* Toute modification crée une nouvelle chaîne
+
+La légitimité vient du consensus, pas du contrôle.
+
+---
+
+## 11. Déploiement
+
+### Phase 1 — Lancement
+
+* Node public initial
+* Bloc genesis
+* Documentation
+
+### Phase 2 — Adoption
+
+* Multiplication des nodes
+* Portefeuilles utilisateurs
+* Intégration services
+
+### Phase 3 — Écosystème
+
+* Applications
+* Paiements réels
+* Économie BASE native
+
+---
+
+## 12. Conclusion
+
+BASE propose une redéfinition radicale de la monnaie :
+
+* centrée sur l’humain,
+* programmable,
+* décentralisée,
+* durable.
+
+Ce n’est pas une promesse politique.
+C’est un protocole.
+
+---
+
+**BASE — A human right, encoded.**
