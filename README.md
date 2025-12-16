@@ -139,3 +139,75 @@ Chaque utilisateur peut recevoir son flux mensuel automatiquement dès la créat
 Les fonds sont sécurisés via signatures et sauvegardes.
 
 La valeur économique dépendra de l’adoption et des échanges dans la vie réelle ou via DEX.
+
+## IMPORTANT ! 
+Création et gestion d’un wallet
+A. Création d’un wallet
+
+En utilisant l’API :
+
+curl -X POST http://127.0.0.1:5000/wallet/create \
+-H "Content-Type: application/json" \
+-d '{"status":"adult"}'
+
+
+Réponse :
+
+{
+  "wallet": "ID_DU_WALLET",
+  "sk": "CLE_PRIVEE_HEX"
+}
+
+
+La clé privée (sk) doit être sauvegardée en sécurité. Elle permet de récupérer le wallet en cas de perte.
+
+B. Voir son solde
+
+Dans le navigateur :
+
+http://127.0.0.1:5000/wallet/ui
+
+
+Affiche :
+
+ID du wallet
+
+Solde total
+
+Solde utilisable
+
+Solde bloqué
+
+Historique récent des transactions
+
+3️⃣ Envoyer des BASE
+
+Depuis l’interface web :
+
+Saisir le wallet destinataire
+
+Saisir le montant
+
+Cliquer sur Envoyer
+
+Depuis l’API :
+
+curl -X POST http://127.0.0.1:5000/send_tx \
+-H "Content-Type: application/json" \
+-d '{"from":"WALLET_ID_FROM","to":"WALLET_ID_TO","amount":100}'
+
+4️⃣ Sauvegarde et récupération de wallet
+
+Exporter le wallet pour sauvegarde :
+
+http://127.0.0.1:5000/wallet/export/WALLET_ID
+
+
+Importer un wallet :
+
+curl -X POST http://127.0.0.1:5000/wallet/import \
+-H "Content-Type: application/json" \
+-d '{"wallet":"ID_DU_WALLET","sk":"CLE_PRIVEE_HEX","status":"adult"}'
+
+
+Ces fonctions permettent de protéger vos fonds en cas de perte du PC ou réinstallation.
