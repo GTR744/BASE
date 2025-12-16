@@ -1,10 +1,10 @@
-BASE – Revenu Universel Décentralisé
+## BASE – Revenu Universel Décentralisé
 
-BASE n’est pas une aide sociale, c’est un droit économique.
+## BASE n’est pas une aide sociale, c’est un droit économique.
 
-BASE est une crypto-monnaie universelle inspirée de Bitcoin mais conçue pour distribuer un revenu minimal à chaque individu dès sa naissance.
+## BASE est une crypto-monnaie universelle conçue pour distribuer un revenu minimal à chaque individu dès sa naissance.
 
-1️⃣ Résumé exécutif
+## 1️⃣ Résumé exécutif
 
 Flux universel automatique pour chaque wallet.
 
@@ -16,7 +16,7 @@ Interface web locale pour consulter et envoyer BASE.
 
 Sauvegarde rolling des 10 derniers cycles pour sécurité.
 
-2️⃣ Objectifs
+## 2️⃣ Objectifs
 
 Garantir un revenu minimal à tout utilisateur.
 
@@ -24,10 +24,10 @@ Créer un système décentralisé et sécurisé.
 
 Permettre l’utilisation dans des services ou biens réels.
 
-Maintenir la stabilité économique du réseau BASE.
+Maintenir la stabilité économique universel.
 
-3️⃣ Architecture technique
-3.1 Blockchain (Layer 1)
+## 3️⃣ Architecture technique
+## 3.1 Blockchain (Layer 1)
 
 Minage léger CPU toutes les 30 secondes.
 
@@ -35,7 +35,7 @@ Ajout des blocs contenant transactions et flux universel.
 
 Sauvegarde des 10 derniers cycles pour reprise en cas de problème.
 
-3.2 Flux universel
+## 3.2 Flux universel
 Statut	Flux mensuel	% utilisable	Commentaire
 Child	750 B	50%	jusqu’à 18 cycles (~18 ans)
 Ado	1000 B	60%	de 18 à 36 cycles
@@ -47,19 +47,19 @@ Passage automatique Child → Ado → Adult.
 
 Accumulation même en inactivité.
 
-3.3 Transactions (Layer 2)
+## 3.3 Transactions (Layer 2)
 
-Frais minimes pour réseau et créateur à vie.
+Frais minimes pour réseau et créateur.
 
 Signatures Ed25519 pour sécurité.
 
 API REST disponible pour envoi et consultation de BASE.
 
-3.4 Wallets
+## 3.4 Wallets
 
 Création automatique à la première connexion (/wallet/ui).
 
-Export et import de wallet possible via API :
+## Export et import de wallet possible via API :
 
 /wallet/export
 
@@ -69,11 +69,11 @@ Interface web locale pour consulter solde et historique :
 
 http://127.0.0.1:5000/wallet/ui
 
-4️⃣ Déploiement
-4.1 Installation des dépendances
+## 4️⃣ Déploiement
+## 4.1 Installation des dépendances
 python -m pip install flask pynacl waitress
 
-4.2 Lancer le node
+## 4.2 Lancer le node
 python Base_Final.py
 
 
@@ -87,13 +87,13 @@ API disponible :
 
 /send_tx → envoyer des BASE
 
-5️⃣ Sauvegarde et reprise
+## 5️⃣ Sauvegarde et reprise
 
 Sauvegarde rolling des 10 derniers cycles dans le dossier backups.
 
 Permet de restaurer la blockchain et les wallets en cas de problème.
 
-6️⃣ Export / Import Wallet
+## 6️⃣ Export / Import Wallet
 
 Exporter son wallet pour sauvegarde personnelle :
 
@@ -112,7 +112,7 @@ POST /wallet/import
   "status": "adult"
 }
 
-7️⃣ Roadmap
+## 7️⃣ Roadmap
 
 Phase 1 – Test local
 
@@ -132,7 +132,7 @@ Publication GitHub + site officiel.
 
 Intégration avec services/DEX pour échange.
 
-8️⃣ Notes
+## 8️⃣ Notes
 
 Chaque utilisateur peut recevoir son flux mensuel automatiquement dès la création de son wallet.
 
