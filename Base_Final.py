@@ -1,12 +1,12 @@
 import os, json, time, hashlib
 from threading import Thread
 from flask import Flask, request, jsonify, render_template_string
-from nacl.signing import SigningKey, VerifyKey
+from nacl.signing import SigningKey
 from nacl.encoding import HexEncoder
 from waitress import serve
 
 # ==============================
-# CONFIGURATION
+# CONFIG
 # ==============================
 BLOCK_TIME = 30  # secondes par cycle
 SAVE_CYCLES = 10
@@ -30,12 +30,11 @@ app = Flask(__name__)
 chain = []
 wallets = {}
 mempool = []
-nonces = {}
 
 os.makedirs(BACKUP_DIR, exist_ok=True)
 
 # ==============================
-# UTILITAIRES
+# UTILS
 # ==============================
 def sha256(data):
     return hashlib.sha256(data.encode()).hexdigest()
@@ -43,12 +42,10 @@ def sha256(data):
 def save_state():
     json.dump(chain, open(DATA_CHAIN, "w"), indent=2)
     json.dump(wallets, open(DATA_WALLETS, "w"), indent=2)
-
     if chain:
         idx = chain[-1]["index"]
         backup_file = f"{BACKUP_DIR}/backup_{idx}.json"
         json.dump({"chain": chain, "wallets": wallets}, open(backup_file, "w"), indent=2)
-
         files = sorted(os.listdir(BACKUP_DIR))
         while len(files) > SAVE_CYCLES:
             os.remove(os.path.join(BACKUP_DIR, files.pop(0)))
@@ -92,7 +89,7 @@ def mine():
         print(f"[MINED] Bloc {block['index']}")
 
 # ==============================
-# WALLET ECONOMIE
+# WALLET ECONOMY
 # ==============================
 def apply_flux(wallet_id):
     w = wallets[wallet_id]
@@ -109,12 +106,12 @@ def apply_flux(wallet_id):
         w["balance"] += amount
         w["usable"] += usable
         w["locked"] += amount - usable
-        w["age"] += 1
+        w["age_cycle"] = w.get("age_cycle", 0) + 1
 
         # Passage child → ado → adult
-        if w["status"] == "child" and w["age"] >= 18:
+        if w["status"] == "child" and w["age_cycle"] >= 18:
             w["status"] = "ado"
-        elif w["status"] == "ado" and w["age"] >= 36:
+        elif w["status"] == "ado" and w["age_cycle"] >= 36:
             w["status"] = "adult"
 
         w["last_month"] = month
@@ -125,36 +122,7 @@ def apply_flux_all():
     save_state()
 
 # ==============================
-# TRANSACTIONS SIGNÉES
-# ==============================
-def verify_tx(tx):
-    try:
-        sender = tx["from"]
-        msg = f'{tx["from"]}{tx["to"]}{tx["amount"]}{tx["nonce"]}'
-        sig = bytes.fromhex(tx["signature"])
-        vk = VerifyKey(sender, encoder=HexEncoder)
-        vk.verify(msg.encode(), sig)
-
-        if wallets[sender]["usable"] < tx["amount"]:
-            return False
-        if nonces.get(sender, -1) >= tx["nonce"]:
-            return False
-        return True
-    except:
-        return False
-
-def apply_tx(tx):
-    sender, to, amount = tx["from"], tx["to"], tx["amount"]
-    wallets[sender]["usable"] -= amount
-    wallets[sender]["balance"] -= amount
-    wallets[to]["balance"] += amount
-    wallets[to]["usable"] += amount
-    nonces[sender] = tx["nonce"]
-    mempool.append(tx)
-    save_state()
-
-# ==============================
-# WALLET CREATION
+# WALLET CREATION / EXPORT / IMPORT
 # ==============================
 @app.route("/wallet/create", methods=["POST"])
 def api_create_wallet():
@@ -165,26 +133,49 @@ def api_create_wallet():
         "usable": 0,
         "locked": 0,
         "status": "adult",
-        "age": 0,
+        "age_cycle": 0,
         "last_month": ""
     }
     apply_flux(vk)
     save_state()
     return jsonify({"wallet": vk, "sk": sk.encode(encoder=HexEncoder).decode()})
 
-@app.route("/wallet/<wid>")
-def wallet_view(wid):
-    return jsonify(wallets.get(wid, {}))
+@app.route("/wallet/export/<wid>")
+def api_export_wallet(wid):
+    if wid not in wallets:
+        return jsonify({"error": "Wallet inconnu"}), 404
+    return jsonify({"wallet": wid, "data": wallets[wid]})
 
-@app.route("/chain")
-def view_chain():
-    return jsonify(chain)
+@app.route("/wallet/import", methods=["POST"])
+def api_import_wallet():
+    data = request.json
+    wid = data["wallet"]
+    wallets[wid] = data["data"]
+    save_state()
+    return jsonify({"status": "wallet importé", "wallet": wid})
 
-@app.route("/wallet/ui/<wid>")
+# ==============================
+# WALLET UI
+# ==============================
+@app.route("/wallet/ui/<wid>", methods=["GET", "POST"])
 def wallet_ui(wid):
     w = wallets.get(wid)
     if not w:
         return "Wallet inconnu"
+    history = [
+        f"{tx['from'][:4]} → {tx['to'][:4]} : {tx['amount']} B"
+        for tx in mempool[-10:]
+    ]
+    if request.method == "POST":
+        to = request.form["to"]
+        amount = float(request.form["amount"])
+        if to in wallets:
+            w["usable"] -= amount
+            w["balance"] -= amount
+            wallets[to]["balance"] += amount
+            wallets[to]["usable"] += amount
+            mempool.append({"from": wid, "to": to, "amount": amount})
+            save_state()
     html = """
     <body style="background:#111;color:#0f0;font-family:Arial;padding:20px">
     <h2>BASE Wallet</h2>
@@ -193,12 +184,30 @@ def wallet_ui(wid):
     <p>Solde: {{ w.balance }}</p>
     <p>Utilisable: {{ w.usable }}</p>
     <p>Bloqué: {{ w.locked }}</p>
+    <h3>Envoyer BASE</h3>
+    <form method="post">
+        <input name="to" placeholder="Wallet destinataire" required><br>
+        <input name="amount" placeholder="Montant" required><br>
+        <button type="submit">Envoyer</button>
+    </form>
+    <h3>Historique récent</h3>
+    <ul>
+    {% for tx in history %}
+    <li>{{ tx }}</li>
+    {% endfor %}
+    </ul>
+    <h3>Sauvegarde</h3>
+    <p><a href="/wallet/export/{{ wid }}" target="_blank">➜ Exporter mon wallet (JSON)</a></p>
     </body>
     """
-    return render_template_string(html, wid=wid, w=w)
+    return render_template_string(html, wid=wid, w=w, history=history)
+
+@app.route("/chain")
+def view_chain():
+    return jsonify(chain)
 
 # ==============================
-# RUN NODE
+# RUN
 # ==============================
 if __name__ == "__main__":
     load_state()
