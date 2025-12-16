@@ -109,3 +109,19 @@ Le système économique actuel repose sur la centralisation et l’émission mon
 
 ```bash
 python -m pip install flask pynacl waitress
+
+python BASE_PUBLIC_NODE.py --port 5000
+
+BASE/
+│
+├─ README.md            # White Paper complet
+├─ BASE_PUBLIC_NODE.py   # Node opérationnel avec découverte auto
+├─ bootstrap.json        # Créé automatiquement pour peer discovery
+├─ wallet_data.json      # Wallets et clés
+├─ blockchaindata.json   # Stockage blockchain
+├─ docs/
+│   ├─ schema_layer1.png
+│   ├─ schema_layer2.png
+│   └─ flux_universel.png
+└─ examples/
+    └─ api_examples.md
