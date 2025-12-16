@@ -1,8 +1,8 @@
-BASE Crypto Node
+## BASE Crypto Node
 
 BASE est une blockchain simple avec un système de wallets, flux automatique mensuel, et UI web pour consulter solde et historique. Chaque utilisateur peut créer un wallet et envoyer des BASE à d’autres utilisateurs.
 
-🚀 Fonctionnalités principales
+## 🚀 Fonctionnalités principales
 
 Flux automatique dès la création du wallet.
 
@@ -14,7 +14,7 @@ Backups automatiques des 10 derniers cycles.
 
 Node public prêt pour plusieurs utilisateurs.
 
-📦 Installation
+## 📦 Installation
 
 Cloner le repo :
 
@@ -34,8 +34,8 @@ python Base_Final.py
 
 Le node écoute sur : http://127.0.0.1:5000
 
-💰 Créer un wallet
-Méthode API
+## 💰 Créer un wallet
+##Méthode API
 
 POST vers /wallet/create :
 
@@ -51,9 +51,9 @@ Réponse :
 }
 
 
-sk : clé privée à conserver pour exporter/importer ton wallet.
+## sk : clé privée à conserver pour exporter/importer ton wallet.
 
-Méthode UI
+## Méthode UI
 
 Ouvre :
 
@@ -64,7 +64,7 @@ Voir le solde total, utilisable et bloqué.
 
 Voir l’historique récent des transactions.
 
-🔄 Envoyer des BASE
+## 🔄 Envoyer des BASE
 
 POST vers /tx/send :
 
