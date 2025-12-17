@@ -160,6 +160,18 @@ ne pas exclure arbitrairement
 
 Le protocole peut évoluer, mais ses principes fondamentaux resteront publics et débattus.
 
-🧭 En une phrase
+## 🧭 Détails
 
 BASE n’est pas une monnaie pour s’enrichir, mais un droit pour participer.
+
+BASE débute sous une gouvernance fondatrice assurant la sécurité et la stabilité.
+
+La gouvernance évolue progressivement vers des mécanismes fondés sur l’usage réel et la participation active.
+
+Le droit de décision collective n’est jamais fondé sur l’identité ou le capital, mais sur l’engagement mesurable dans l’écosystème.
+
+BASE ne repose pas sur un vote majoritaire mais sur des signaux pondérés par l’usage réel.
+
+Chaque utilisateur peut exprimer une réserve sans bloquer le système.
+
+Les décisions sont ajustées uniquement lorsque les signaux atteignent un seuil significatif et durable.
