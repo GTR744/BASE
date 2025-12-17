@@ -175,3 +175,8 @@ BASE ne repose pas sur un vote majoritaire mais sur des signaux pondérés par l
 Chaque utilisateur peut exprimer une réserve sans bloquer le système.
 
 Les décisions sont ajustées uniquement lorsque les signaux atteignent un seuil significatif et durable.
+
+BASE garantit la survie et la liberté minimale.
+La prospérité maximale est proportionnelle à la valeur rendue à la société.
+Personne ne peut consommer plus qu’il n’a contribué,
+et personne n’est condamné à la misère.
