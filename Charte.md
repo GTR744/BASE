@@ -18,17 +18,17 @@ sans investissement préalable
 
 sans condition de richesse, d’origine ou de statut social
 
-BASE met en œuvre ce principe par une distribution régulière, identique pour tous selon l’âge et l’activité.
+BASE met en œuvre ce principe par une distribution régulière, identique pour tous selon l’âge de création du compte et l’activité protocolaire.
+
+Non pas l'age identitaire
 
 ## 3. Distribution et responsabilité
 
 La distribution de BASE :
 
-n’est pas automatique
+La distribution n’est pas inconditionnelle
 
-dépend du respect du protocole
-
-implique une responsabilité d’usage minimale
+elle dépend du respect minimal du protocole et d’une activité vérifiable.
 
 L’inactivité prolongée peut entraîner :
 
@@ -64,7 +64,7 @@ Ces fonds :
 
 ne sont pas des impôts
 
-ne sont pas récupérables
+ne peuvent être réclamés individuellement
 
 ne donnent pas droit à un rendement garanti
 
@@ -178,5 +178,10 @@ Les décisions sont ajustées uniquement lorsque les signaux atteignent un seuil
 
 BASE garantit la survie et la liberté minimale.
 La prospérité maximale est proportionnelle à la valeur rendue à la société.
+
+Ces mécanismes visent à éviter la paralysie, la capture du système et la domination par des minorités organisées.
+
 Personne ne peut consommer plus qu’il n’a contribué,
 et personne n’est condamné à la misère.
+
+BASE ne garantit pas l’équité parfaite, mais la résilience.
